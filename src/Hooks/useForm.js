@@ -48,9 +48,9 @@ const useForm = () => {
         config: {}
     });
 
-    const getValues = () => {
-        return state.values;
-    }
+    const getValues = () => state.values;
+
+    const getErrors = () => state.errors;
 
     const isValid = () => {
         if (Object.keys(state.values).length === 0) return false;
@@ -58,11 +58,10 @@ const useForm = () => {
     };
 
     return {
-        values: state.values,
-        errors: state.errors,
-        isValid,
+        dispatch,
+        getErrors,
         getValues,
-        dispatch
+        isValid,
     };
 };
 
