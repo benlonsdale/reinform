@@ -41,7 +41,6 @@ const useInput = ({ validation, defaultValue, displayName, ...config }, form) =>
 
     const valueSetter = useCallback(e => {
         let value;
-        console.log(e instanceof Event)
         if (e.target !== undefined) {
             value = e.target.value;
         } else {
@@ -92,12 +91,13 @@ const useInput = ({ validation, defaultValue, displayName, ...config }, form) =>
     return {
         ...config,
         "aria-label": config["aria-label"] ? config["aria-label"] : displayName,
-        errors: errors,
+        errors,
         label: config.label ? config.label : (!config.hideLabel ? displayName : undefined),
         onChange: valueSetter,
         onBlur: validateField,
         placeholder: config.placeholder ? config.placeholder : (config.showPlaceholder ? displayName : undefined),
-        value: value
+        validateField,
+        value
     };
 };
 
