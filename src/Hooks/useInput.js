@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from "react";
 import handleValidation from '../Utils/handleValidation';
 
-const useInput = ({ validation, defaultValue, ...config }, form) => {
-    const { displayName, name } = config;
+const useInput = ({ validation, defaultValue, displayName, ...config }, form) => {
+    const { name } = config;
     if (!name) throw new Error('"name" is a required key in the config');
-    if (!displayName) throw new Error('"displayName" is a required key in the useInput() config');
+    if (!displayName) displayName = name;
     useEffect(
         () => {
             form.dispatch({
@@ -41,6 +41,7 @@ const useInput = ({ validation, defaultValue, ...config }, form) => {
 
     const valueSetter = useCallback(e => {
         let value;
+        console.log(e instanceof Event)
         if (e.target !== undefined) {
             value = e.target.value;
         } else {
