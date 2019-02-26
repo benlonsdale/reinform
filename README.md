@@ -78,6 +78,21 @@ const firstnameInput = useInput({
     }
 }, form);
 ```
+The validation object passed to the `useInput()` config has the following options:
+```jsx
+{
+    maxLength: 10, //int
+    minLength: 5, //int
+    required: true, //bool
+    email: false, //bool
+    customValidator: (value) => {
+        if(value !== 'My Name'){
+            return "This input must equal 'My Name'"
+        }
+    }
+}
+```
+
 From the above basic input config above the `useInput()` returns an object designed to be spread over an input component. 
 
 ```jsx
@@ -101,7 +116,8 @@ however this does not handle/display any validation errors and will cause consol
 It is far better to create your own input component that handles the input object, here is an example using styled components:
 ```jsx
 <CustomInput {...firstnameInput} />
-
+```
+```jsx
 const CustomInput = ({ errors, validateField, label, ...props }) => {
     return (
         <InputContainer hasErrors={errors && errors.length > 0}>
