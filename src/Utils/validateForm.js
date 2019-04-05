@@ -2,6 +2,7 @@ import handleValidation from './handleValidation';
 
 const validateForm = (state, dispatch) => {
     const { values, validationRules, config } = state;
+    console.log(config)
     let isValid = true;
     Object.entries(values).forEach(([name, value]) => {
         const valueErrors = [];
