@@ -30,9 +30,9 @@ const useInput = ({ validation, defaultValue, showPlaceholder, ...config }, form
                     values: {
                         [name]: defaultValue ? defaultValue : value
                     },
-                    // errors: {
-                    //     [name]: errors
-                    // }
+                    errors: {
+                        [name]: errors
+                    }
                 }
             });
         },
@@ -91,7 +91,7 @@ const useInput = ({ validation, defaultValue, showPlaceholder, ...config }, form
     return {
         ...config,
         "aria-label": config["aria-label"] ? config["aria-label"] : displayName,
-        errors: errors.length > 0 ? errors : undefined,
+        errors,
         label: config.label ? config.label : (!config.hideLabel ? displayName : undefined),
         onChange: valueSetter,
         onBlur: validateField,
