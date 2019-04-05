@@ -30,9 +30,9 @@ const useInput = ({ validation, defaultValue, displayName, ...config }, form) =>
                     values: {
                         [name]: defaultValue ? defaultValue : value
                     },
-                    errors: {
-                        [name]: errors
-                    }
+                    // errors: {
+                    //     [name]: errors
+                    // }
                 }
             });
         },
@@ -79,10 +79,10 @@ const useInput = ({ validation, defaultValue, displayName, ...config }, form) =>
             type: "update",
             payload: {
                 values: {
-                    [config.name]: value
+                    [name]: value
                 },
                 errors: {
-                    [config.name]: newErrors
+                    [name]: newErrors
                 }
             }
         });
