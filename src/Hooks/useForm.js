@@ -34,6 +34,16 @@ const formReducer = (state, action) => {
                 }
             };
         }
+        case "appendError": {
+            console.log(action)
+            return {
+                ...state,
+                errors: {
+                    ...state.errors,
+                    [action.payload.key]: [...state.errors[action.payload.key], action.payload.error]
+                }
+            }
+        }
         default: {
             return state;
         }

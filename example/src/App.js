@@ -30,6 +30,7 @@ const App = () => {
             <input {...name} />
             <pre>{JSON.stringify(name.errors)}</pre>
             <button onClick={handleClick}>Click</button>
+            <button onClick={() => name.appendError('added')}>Append</button>
         </Fragment>
     );
 }

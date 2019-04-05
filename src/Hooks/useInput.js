@@ -88,9 +88,21 @@ const useInput = ({ validation, defaultValue, showPlaceholder, ...config }, form
         });
     }, [value, displayName])
 
+    function appendError(errorString){
+        console.log('here')
+        form.dispatch({
+            type: 'appendError',
+            payload:{
+                key: name,
+                error: errorString,
+            }
+        })
+    }
+
     return {
         ...config,
         "aria-label": config["aria-label"] ? config["aria-label"] : displayName,
+        appendError,
         errors,
         label: config.label ? config.label : (!config.hideLabel ? displayName : undefined),
         onChange: valueSetter,
