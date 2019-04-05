@@ -60,7 +60,9 @@ const useForm = () => {
     return {
         dispatch,
         getErrors,
+        errors: state.errors,
         getValues,
+        values: state.values,
         isValid,
     };
 };

@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect } from "react";
 import handleValidation from '../Utils/handleValidation';
 
-const useInput = ({ validation, defaultValue, displayName, ...config }, form) => {
-    const { name } = config;
+const useInput = ({ validation, defaultValue, showPlaceholder, ...config }, form) => {
+    const { name, displayName } = config;
     if (!name) throw new Error('"name" is a required key in the config');
     if (!displayName) displayName = name;
     useEffect(
@@ -91,11 +91,11 @@ const useInput = ({ validation, defaultValue, displayName, ...config }, form) =>
     return {
         ...config,
         "aria-label": config["aria-label"] ? config["aria-label"] : displayName,
-        errors,
+        errors: errors.length > 0 ? errors : undefined,
         label: config.label ? config.label : (!config.hideLabel ? displayName : undefined),
         onChange: valueSetter,
         onBlur: validateField,
-        placeholder: config.placeholder ? config.placeholder : (config.showPlaceholder ? displayName : undefined),
+        placeholder: config.placeholder ? config.placeholder : (showPlaceholder ? displayName : undefined),
         validateField,
         value
     };
