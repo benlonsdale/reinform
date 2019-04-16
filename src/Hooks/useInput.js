@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
+import { isEqual } from 'lodash'
 import handleValidation from '../Utils/handleValidation';
 
 const useInput = ({ validation, defaultValue, showPlaceholder, ...config }, form) => {
@@ -22,13 +23,20 @@ const useInput = ({ validation, defaultValue, showPlaceholder, ...config }, form
     const errors = form.errors[name] ? form.errors[name] : [];
     const value = form.values[name] ? form.values[name] : "";
 
+    const defaultValueRef = useRef();
+    useEffect(() => {
+        if (!isEqual(defaultValueRef.current, defaultValue)) {
+            defaultValueRef.current = defaultValue;
+        }
+    }, [defaultValue]);
+
     useEffect(
         () => {
             form.dispatch({
                 type: "update",
                 payload: {
                     values: {
-                        [name]: defaultValue ? defaultValue : value
+                        [name]: defaultValueRef.current ? defaultValueRef.current : value
                     },
                     errors: {
                         [name]: errors
@@ -36,7 +44,7 @@ const useInput = ({ validation, defaultValue, showPlaceholder, ...config }, form
                 }
             });
         },
-        [name, defaultValue]
+        [name, defaultValueRef.current]
     );
 
     const valueSetter = useCallback(e => {
