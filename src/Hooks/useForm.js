@@ -58,7 +58,12 @@ const useForm = () => {
         config: {}
     });
 
-    const getValues = () => state.values;
+    // Reduce over values and apply getValue() to inputs where passed in as part of input config
+    const getValues = () => Object.entries(state.values).reduce((values, [inputKey, inputValue]) => {
+        console.log(inputValue)
+        values[inputKey] = state.config[inputKey].getValue !== undefined ? state.config[inputKey].getValue(inputValue) : inputValue;
+        return values;
+    }, {});
 
     const getErrors = () => state.errors;
 
