@@ -8,19 +8,17 @@ const App = () => {
         displayName: 'Your Name',
         name: 'name',
         showPlaceholder: true,
+        getValue(rawValue){
+            return rawValue + ' Modified'
+        },
         validation: {
             required: true,
-            customValidator(value){
-                if(value !== 'Max'){
-                    return "You need to enter Max"
-                }
-            }
         }
     }, form);
 
     const handleClick = useCallback(() => {
-        console.log(form.isValid());
-        // console.log(form.getValues());
+        // console.log(form.isValid());
+        console.log(form.getValues());
         // console.log(form.getErrors());
     })
 
