@@ -11,7 +11,10 @@
     "parcel-bundler": "^1.11.0"
   },
   "dependencies": {
-    "react-hot-loader": "^4.7.1"
+    "cleave.js": "^1.4.10",
+    "react-hot-loader": "^4.7.1",
+    "react-input-mask": "^2.0.4",
+    "reactstrap": "^8.0.0"
   },
   "alias": {
     "react": "../node_modules/react",

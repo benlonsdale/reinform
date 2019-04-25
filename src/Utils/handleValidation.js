@@ -1,44 +1,58 @@
 import { emailRegex, phoneNumberRegex } from './regex';
+import moment from 'moment';
 
 const handleValidation = ({ value, test, key, state, displayName }) => {
-    switch (key) {
-        case "maxLength": {
-            if (value.length > test) {
-                return `Maximum length for this input is ${test}`;
+    try{
+        switch (key) {
+            case "maxLength": {
+                if (value.length > test) {
+                    return `Maximum length for this input is ${test}`;
+                }
+                break;
             }
-            break;
-        }
-        case "minLength": {
-            if (value.length > 0 && value.length < test) {
-                return `Minimum length for this input is ${test}`;
+            case "minLength": {
+                if (value.length > 0 && value.length < test) {
+                    return `Minimum length for this input is ${test}`;
+                }
+                break;
             }
-            break;
-        }
-        case "required": {
-            if (test === true && value.length < 1) {
-                return `${displayName} is required`;
+            case "required": {
+                if (test === true && value.length < 1) {
+                    return `${displayName} is required`;
+                }
+                break;
             }
-            break;
-        }
-        case "email": {
-            if (test === true && value.length > 0 && !emailRegex.test(value)) {
-                return 'Please enter a valid email address';
+            case "email": {
+                if (test === true && value.length > 0 && !emailRegex.test(value)) {
+                    return 'Please enter a valid email address';
+                }
+                break;
             }
-            break;
-        }
-        case "phone": {
-            if (test === true && value.length > 0 && !phoneNumberRegex.test(value)) {
-                return 'Please enter a valid phone number';
+            case "phone": {
+                if (test === true && value.length > 0 && !phoneNumberRegex.test(value)) {
+                    return 'Please enter a valid phone number';
+                }
+                break;
             }
-            break;            
-        }
-        case "customValidator": {
-            return test(value, state);
-        }
-        default: {
-            return undefined;
+            case "date": {
+                const date = moment(value, 'DD-MM-YYYY', true)
+                if (test === true && !date.isValid()) {
+                    return 'Please enter a valid date'
+                }
+                break;
+            }
+            case "customValidator": {
+                return test(value, state);
+            }
+            default: {
+                return undefined;
+            }
         }
     }
+    catch(e){
+        console.log(e);
+    }
+    
     return undefined;
 };
 

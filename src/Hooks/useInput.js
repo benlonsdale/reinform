@@ -68,11 +68,12 @@ const useInput = ({ validation, defaultValue, showPlaceholder, ...config }, form
         });
     }, [value]);
 
-    const validateField = useCallback(e => {
+    function validateField (e) {
         const state = {
             values: form.values,
             errors: form.errors,
         }
+        
         let newErrors = [];
         if (validation !== undefined) {
             Object.keys(validation).forEach(key => {
@@ -83,21 +84,21 @@ const useInput = ({ validation, defaultValue, showPlaceholder, ...config }, form
                 }
             });
         }
+
         form.dispatch({
             type: "update",
             payload: {
-                values: {
-                    [name]: value
-                },
+                // values: {
+                //     [name]: value
+                // },
                 errors: {
                     [name]: newErrors
                 }
             }
         });
-    }, [value, displayName])
+    }
 
     function appendError(errorString){
-        console.log('here')
         form.dispatch({
             type: 'appendError',
             payload:{
