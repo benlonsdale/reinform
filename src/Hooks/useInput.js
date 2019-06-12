@@ -51,6 +51,8 @@ const useInput = (
       if (e !== undefined && e !== null) {
         if (e.target !== undefined) {
           value = e.target.value;
+        } else {
+          value = e;
         }
       } else {
         value = e;
