@@ -5,7 +5,7 @@
   "main": "build/index.js",
   "license": "MIT",
   "peerDependencies": {
-    "react": ">=16.8.0"
+    "react": ">=16.8.3"
   },
   "scripts": {
     "start": "webpack --watch",
@@ -22,8 +22,6 @@
     "@babel/preset-env": "^7.3.1",
     "babel-loader": "^8.0.5",
     "eslint-plugin-react-hooks": "^1.2.0",
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
     "webpack": "^4.29.5",
     "webpack-cli": "^3.3.4"
   },
