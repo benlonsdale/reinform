@@ -48,7 +48,9 @@ const useInput = (
     e => {
       let value;
 
-      if (e !== undefined && e !== null) {
+      if (config && config.type !== undefined && config.type === "file") {
+        value = e.target.files;
+      } else if (e !== undefined && e !== null) {
         if (e.target !== undefined) {
           value = e.target.value;
         } else {

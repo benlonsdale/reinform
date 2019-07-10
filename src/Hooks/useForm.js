@@ -35,6 +35,7 @@ const formReducer = (state, action) => {
       };
     }
     case "appendError": {
+      console.log({ action });
       return {
         ...state,
         errors: {
