@@ -22,6 +22,21 @@ const useInput = (
 
   const errors = form.errors[name] ? form.errors[name] : [];
   const value = form.values[name] ? form.values[name] : "";
+  let label = undefined;
+
+  if (config.label !== undefined) {
+    label = config.label;
+  } else if (config.label === undefined && !config.hideLabel) {
+    label = displayName;
+  }
+
+  if (
+    validation !== undefined &&
+    validation.required &&
+    validation.required === true
+  ) {
+    label = label + "*";
+  }
 
   const defaultValueRef = useRef();
   useEffect(() => {
@@ -126,11 +141,7 @@ const useInput = (
     "aria-label": config["aria-label"] ? config["aria-label"] : displayName,
     appendError,
     errors,
-    label: config.label
-      ? config.label
-      : !config.hideLabel
-      ? displayName
-      : undefined,
+    label: label,
     onChange: valueSetter,
     onBlur: validateField,
     placeholder: config.placeholder

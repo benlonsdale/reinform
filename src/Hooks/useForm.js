@@ -35,8 +35,7 @@ const formReducer = (state, action) => {
       };
     }
     case "appendError": {
-      console.log({ action });
-      return {
+      const newState = {
         ...state,
         errors: {
           ...state.errors,
@@ -45,6 +44,23 @@ const formReducer = (state, action) => {
             action.payload.error
           ]
         }
+      };
+      return newState;
+    }
+    case "appendErrors": {
+      const newErrors = Object.entries(state.errors).reduce(
+        (newObject, [key, errorArray]) => {
+          newObject[key] = [
+            ...errorArray,
+            ...(action.payload[key] ? action.payload[key] : [])
+          ];
+          return newObject;
+        },
+        {}
+      );
+      return {
+        ...state,
+        errors: newErrors
       };
     }
     default: {
@@ -104,7 +120,15 @@ const useForm = () => {
     return validateForm(state, dispatch);
   };
 
+  const appendErrors = obj => {
+    dispatch({
+      type: "appendErrors",
+      payload: obj
+    });
+  };
+
   return {
+    appendErrors,
     dispatch,
     getErrors,
     errors: state.errors,
