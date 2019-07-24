@@ -1,5 +1,6 @@
 const path = require("path");
-module.exports = {
+
+var config = {
   entry: path.resolve(path.join(__dirname, "src/index.js")),
   output: {
     path: path.resolve(__dirname, "build"),
@@ -27,4 +28,12 @@ module.exports = {
   externals: {
     react: "commonjs react"
   }
+};
+
+module.exports = (env, argv) => {
+  if (argv.mode === "development") {
+    config.devtool = "source-map";
+    config.mode = "development";
+  }
+  return config;
 };
