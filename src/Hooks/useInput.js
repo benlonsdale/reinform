@@ -6,7 +6,8 @@ const useInput = (
   { validation, defaultValue, showPlaceholder, ...config },
   form
 ) => {
-  const { name, displayName } = config;
+  const { name } = config;
+  let { displayName } = config;
   if (!name) throw new Error('"name" is a required key in the config');
   if (!displayName) displayName = name;
   useEffect(() => {
