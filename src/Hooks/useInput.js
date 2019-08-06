@@ -125,6 +125,8 @@ const useInput = (
         }
       }
     });
+
+    return newErrors.length < 1;
   }
 
   function appendError(errorString) {
