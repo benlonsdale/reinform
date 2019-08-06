@@ -1,6 +1,6 @@
 {
   "name": "reinform",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Looking at forms differently",
   "main": "build/index.js",
   "license": "MIT",
