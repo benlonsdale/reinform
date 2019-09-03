@@ -65,8 +65,8 @@ const useInput = (
       let value;
 
       if (config && config.type !== undefined && config.type === "file") {
-        if (e && e.target && e.target.files) {
-          value = e.target.files;
+        if (e && e.target && e.target.files && e.target.files[0]) {
+          value = e.target.files[0];
         }
       } else if (e !== undefined && e !== null) {
         if (e.target !== undefined) {
