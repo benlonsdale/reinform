@@ -35254,7 +35254,7 @@ var handleValidation = function handleValidation(_ref) {
 
       case "required":
         {
-          if (test === true && value.length < 1) {
+          if (test === true && (value === null || value.length < 1)) {
             return "".concat(displayName, " is required");
           }
 

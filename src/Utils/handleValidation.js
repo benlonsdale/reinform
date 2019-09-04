@@ -17,7 +17,7 @@ const handleValidation = ({ value, test, key, state, displayName }) => {
         break;
       }
       case "required": {
-        if (test === true && value.length < 1) {
+        if (test === true && (value === null || value.length < 1)) {
           return `${displayName} is required`;
         }
         break;
