@@ -25,6 +25,19 @@ const formReducer = (state, action) => {
                 }
             };
         }
+        case "clearValues": {
+            let newValues = Object.entries(state.values).reduce((values, [inputKey]) => {
+                values[inputKey] = "";
+                return values;
+            }, {});
+
+            return {
+                ...state,
+                values: {
+                    ...newValues,
+                }
+            };
+        }
         case "setConfig": {
             return {
                 ...state,
@@ -90,11 +103,11 @@ const useForm = () => {
             {}
         );
 
-    const clearValues = () =>
-        Object.entries(state.values).reduce((values, [inputKey]) => {
-            values[inputKey] = "";
-            return values;
-        }, {});
+    const clearValues = () => {
+        dispatch({
+            type: "clearValues"
+        });
+    }
 
     // Reduce over the values and get the value
     // Iterate over any inputs that are of the type files
