@@ -110,7 +110,14 @@ const useForm = () => {
                         ? state.config[inputKey].getValue(inputValue)
                         : inputValue;
 
-                formData.append(inputKey, value);
+                if (type === "file") {
+                    Array.from(inputValue).forEach(file => {
+                        console.log(file);
+                        formData.append(inputKey + "[]", file);
+                    });
+                } else {
+                    formData.append(inputKey, value);
+                }
 
                 return formData;
             },
