@@ -34,7 +34,7 @@ const formReducer = (state, action) => {
             return {
                 ...state,
                 values: {
-                    ...newValues,
+                    ...newValues
                 }
             };
         }
@@ -52,25 +52,16 @@ const formReducer = (state, action) => {
                 ...state,
                 errors: {
                     ...state.errors,
-                    [action.payload.key]: [
-                        ...state.errors[action.payload.key],
-                        action.payload.error
-                    ]
+                    [action.payload.key]: [...state.errors[action.payload.key], action.payload.error]
                 }
             };
             return newState;
         }
         case "appendErrors": {
-            const newErrors = Object.entries(state.errors).reduce(
-                (newObject, [key, errorArray]) => {
-                    newObject[key] = [
-                        ...errorArray,
-                        ...(action.payload[key] ? action.payload[key] : [])
-                    ];
-                    return newObject;
-                },
-                {}
-            );
+            const newErrors = Object.entries(state.errors).reduce((newObject, [key, errorArray]) => {
+                newObject[key] = [...errorArray, ...(action.payload[key] ? action.payload[key] : [])];
+                return newObject;
+            }, {});
             return {
                 ...state,
                 errors: newErrors
@@ -92,50 +83,44 @@ const useForm = () => {
 
     // Reduce over values and apply getValue() to inputs where passed in as part of input config
     const getValues = () =>
-        Object.entries(state.values).reduce(
-            (values, [inputKey, inputValue]) => {
-                values[inputKey] =
-                    state.config[inputKey].getValue !== undefined
-                        ? state.config[inputKey].getValue(inputValue)
-                        : inputValue;
-                return values;
-            },
-            {}
-        );
+        Object.entries(state.values).reduce((values, [inputKey, inputValue]) => {
+            values[inputKey] = state.config[inputKey].getValue !== undefined ? state.config[inputKey].getValue(inputValue) : inputValue;
+            return values;
+        }, {});
 
     const clearValues = () => {
         dispatch({
             type: "clearValues"
         });
-    }
+    };
 
     // Reduce over the values and get the value
     // Iterate over any inputs that are of the type files
     // Return the values in the form of a FormData object
     const getFormDataObject = () => {
-        let formData = new FormData();
-        return Object.entries(state.values).reduce(
-            (values, [inputKey, inputValue]) => {
-                let type =
-                    state.config[inputKey] && state.config[inputKey].type;
-                let value =
-                    state.config[inputKey].getValue !== undefined
-                        ? state.config[inputKey].getValue(inputValue)
-                        : inputValue;
+        return Object.entries(state.values).reduce((formData, [inputKey, inputValue]) => {
+            let type = state.config[inputKey] && state.config[inputKey].type;
+            let value = state.config[inputKey].getValue !== undefined ? state.config[inputKey].getValue(inputValue) : inputValue;
 
-                if (type === "file") {
+            switch (type) {
+                case "file":
                     Array.from(inputValue).forEach(file => {
-                        console.log(file);
                         formData.append(inputKey + "[]", file);
                     });
-                } else {
+                    break;
+                case "multi":
+                    Array.from(inputValue).forEach(({ label, value }, index) => {
+                        formData.append(`${inputKey}[${index}][label]`, label);
+                        formData.append(`${inputKey}[${index}][value]`, value);
+                    });
+                    break;
+                default:
                     formData.append(inputKey, value);
-                }
+                    break;
+            }
 
-                return formData;
-            },
-            new FormData()
-        );
+            return formData;
+        }, new FormData());
     };
 
     const getErrors = () => state.errors;
