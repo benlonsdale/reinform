@@ -115,7 +115,7 @@ const useForm = () => {
                     });
                     break;
                 default:
-                    formData.append(inputKey, value);
+                    formData.append(inputKey, value !== null ? value : "");
                     break;
             }
 
