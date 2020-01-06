@@ -109,10 +109,11 @@ const useForm = () => {
                     });
                     break;
                 case "multi":
-                    Array.from(inputValue).forEach(({ label, value }, index) => {
-                        formData.append(`${inputKey}[${index}][label]`, label);
-                        formData.append(`${inputKey}[${index}][value]`, value);
-                    });
+                    inputValue &&
+                        Array.from(inputValue).forEach(({ label, value }, index) => {
+                            formData.append(`${inputKey}[${index}][label]`, label);
+                            formData.append(`${inputKey}[${index}][value]`, value);
+                        });
                     break;
                 default:
                     formData.append(inputKey, value !== null ? value : "");
