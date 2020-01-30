@@ -3,3 +3,4 @@
 /example/node_modules
 /example/\.cache
 /example/dist/
+build/

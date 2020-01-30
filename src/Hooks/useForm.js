@@ -104,9 +104,14 @@ const useForm = () => {
 
             switch (type) {
                 case "file":
-                    Array.from(inputValue).forEach(file => {
-                        formData.append(inputKey + "[]", file);
-                    });
+                    if (typeof inputValue !== "string") {
+                        Array.from(inputValue).forEach(file => {
+                            formData.append(inputKey + "[]", file);
+                        });
+                    } else {
+                        // This is used to send nonfile contents under a file key - primarily to inform the backend to remove the file
+                        formData.append(inputKey, inputValue);
+                    }
                     break;
                 case "multi":
                     inputValue &&

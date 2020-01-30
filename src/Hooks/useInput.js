@@ -2,10 +2,7 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { isEqual } from "lodash";
 import handleValidation from "../Utils/handleValidation";
 
-const useInput = (
-    { validation, defaultValue, showPlaceholder, ...config },
-    form
-) => {
+const useInput = ({ validation, defaultValue, showPlaceholder, ...config }, form) => {
     const { name } = config;
     let { displayName } = config;
     if (!name) throw new Error('"name" is a required key in the config');
@@ -31,11 +28,7 @@ const useInput = (
         label = displayName;
     }
 
-    if (
-        validation !== undefined &&
-        validation.required &&
-        validation.required === true
-    ) {
+    if (validation !== undefined && validation.required && validation.required === true) {
         label = label + "*";
     }
 
@@ -51,9 +44,7 @@ const useInput = (
             type: "update",
             payload: {
                 values: {
-                    [name]: defaultValueRef.current
-                        ? defaultValueRef.current
-                        : value
+                    [name]: defaultValueRef.current ? defaultValueRef.current : value
                 },
                 errors: {
                     [name]: errors
@@ -66,11 +57,11 @@ const useInput = (
         e => {
             let value;
 
-            if (config && config.type !== undefined && config.type === "file") {
-                if (e && e.target && e.target.files && e.target.files) {
+            if (config && config.type && config.type === "file") {
+                if (e && e.target && e.target.files) {
                     value = e.target.files;
                 }
-            } else if (e !== undefined && e !== null) {
+            } else if (e) {
                 if (e.target !== undefined) {
                     value = e.target.value;
                 } else {
@@ -151,11 +142,7 @@ const useInput = (
         label: label,
         onChange: valueSetter,
         onBlur: validateField,
-        placeholder: config.placeholder
-            ? config.placeholder
-            : showPlaceholder
-            ? displayName
-            : undefined,
+        placeholder: config.placeholder ? config.placeholder : showPlaceholder ? displayName : undefined,
         validateField,
         value
     };
