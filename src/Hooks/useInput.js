@@ -57,11 +57,11 @@ const useInput = ({ validation, defaultValue, showPlaceholder, ...config }, form
         e => {
             let value;
 
-            if (config && config.type !== undefined && config.type === "file") {
-                if (e && e.target && e.target.files && e.target.files) {
+            if (config && config.type && config.type === "file") {
+                if (e && e.target && e.target.files) {
                     value = e.target.files;
                 }
-            } else if (e !== undefined && e !== null) {
+            } else if (e) {
                 if (e.target !== undefined) {
                     value = e.target.value;
                 } else {
